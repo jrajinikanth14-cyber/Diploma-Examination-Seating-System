@@ -1,0 +1,3080 @@
+/* =========================================================
+   EXAMINATIONS MODULE
+   File: assets/css/examinations.css
+========================================================= */
+
+/* =========================================================
+   GOOGLE FONT
+========================================================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+/* =========================================================
+   ROOT
+========================================================= */
+
+:root {
+    --primary: #2563a6;
+    --primary-dark: #1e4f80;
+    --primary-light: #edf5fc;
+    --background: #f6f9fd;
+    --white: #ffffff;
+    --text: #334155;
+    --muted: #64748b;
+    --light-muted: #94a3b8;
+    --border: #e2e8f0;
+    --border-light: #edf1f6;
+    --success: #16a34a;
+    --success-light: #ecfdf3;
+    --danger: #dc2626;
+    --danger-light: #fff1f2;
+    --warning: #d97706;
+    --warning-light: #fffbeb;
+    --shadow: 0 12px 35px rgba(15, 50, 90, 0.08);
+    --radius: 18px;
+}
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: "Poppins", sans-serif;
+    background: var(--background);
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+body.sidebar-open {
+    overflow: hidden;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button {
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 35, 60, 0.45);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+        opacity 0.3s ease,
+        visibility 0.3s ease;
+    z-index: 999;
+}
+
+.overlay.show {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* =========================================================
+   SIDEBAR
+========================================================= */
+
+.sidebar {
+    position: fixed;
+    top: 15px;
+    left: 0;
+    width: 285px;
+    height: calc(100vh - 30px);
+    background: var(--white);
+    border: 1px solid #e5edf5;
+    border-radius: 24px;
+    box-shadow: 10px 0 35px rgba(15, 50, 90, 0.08);
+    transform: translateX(-105%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.sidebar.show {
+    transform: translateX(0);
+}
+
+.sidebar::-webkit-scrollbar {
+    width: 5px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: #94a3b8;
+    border-radius: 20px;
+}
+
+.sidebar-header {
+    height: 94px;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.sidebar-header h2 {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--primary);
+}
+
+.sidebar-header button {
+    width: 42px;
+    height: 42px;
+    border: 1px solid #dfe7f0;
+    background: #f7faff;
+    color: var(--muted);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.sidebar-header button:hover {
+    background: var(--primary-light);
+    color: var(--primary);
+    transform: rotate(5deg);
+}
+
+.sidebar .menu {
+    list-style: none;
+    padding: 18px;
+    margin: 0;
+}
+
+.sidebar .menu li {
+    margin-bottom: 7px;
+}
+
+.sidebar .menu li a {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 18px;
+    border-radius: 14px;
+    font-size: 15px;
+    font-weight: 500;
+    color: #475569;
+    transition:
+        background 0.3s ease,
+        color 0.3s ease,
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.sidebar .menu li a i {
+    width: 24px;
+    min-width: 24px;
+    text-align: center;
+    font-size: 18px;
+    color: var(--muted);
+    transition:
+        color 0.3s ease,
+        transform 0.3s ease;
+}
+
+.sidebar .menu li:hover a {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    transform: translateX(5px);
+}
+
+.sidebar .menu li:hover a i {
+    color: var(--primary);
+    transform: scale(1.08);
+}
+
+.sidebar .menu li.active a {
+    background: linear-gradient(
+        135deg,
+        #2563a6,
+        #3478b5
+    );
+    color: var(--white);
+    box-shadow: 0 8px 22px rgba(37, 99, 166, 0.2);
+    transform: none;
+}
+
+.sidebar .menu li.active a i {
+    color: var(--white);
+}
+
+.sidebar .menu li.active a::before {
+    content: "";
+    position: absolute;
+    left: -18px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 28px;
+    border-radius: 0 5px 5px 0;
+    background: var(--primary);
+}
+
+.sidebar .menu li.logout {
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border-light);
+}
+
+.sidebar .menu li.logout a,
+.sidebar .menu li.logout a i {
+    color: var(--danger);
+}
+
+.sidebar .menu li.logout:hover a {
+    background: var(--danger-light);
+    color: var(--danger);
+}
+
+/* =========================================================
+   MAIN CONTENT
+========================================================= */
+
+.main-content {
+    min-height: 100vh;
+    width: 100%;
+}
+
+.page-container {
+    width: min(1500px, calc(100% - 50px));
+    margin: 0 auto;
+    padding: 30px 0 55px;
+}
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    padding: 32px 38px;
+    margin-bottom: 35px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 22px;
+    box-shadow: 0 12px 35px rgba(15, 23, 42, 0.07);
+}
+
+.header-left {
+    flex: 1;
+    min-width: 0;
+}
+
+/* =========================================================
+   MENU BUTTON
+========================================================= */
+
+.menu-button {
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #2563a6;
+    border-radius: 12px;
+    background: #2563a6;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 17px;
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.menu-button i {
+    color: #ffffff;
+    font-size: 17px;
+}
+
+.menu-button:hover {
+    background: #1e4f80;
+    border-color: #1e4f80;
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 15px rgba(37, 99, 166, 0.2);
+}
+
+.menu-button:hover i {
+    color: #ffffff;
+}
+
+/* =========================================================
+   BREADCRUMB
+========================================================= */
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 9px;
+    margin-bottom: 12px;
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+.breadcrumb a {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #2563a6;
+    font-weight: 500;
+    text-decoration: none;
+    transition:
+        color 0.25s ease,
+        transform 0.25s ease;
+}
+
+.breadcrumb a:hover {
+    color: #1e4f80;
+    transform: translateX(2px);
+}
+
+.breadcrumb a i {
+    color: #2563a6;
+    font-size: 14px;
+}
+
+.breadcrumb > span {
+    font-size: 13px;
+    color: #64748b;
+}
+
+.breadcrumb > span:not(:last-child) {
+    color: #cbd5e1;
+}
+
+/* =========================================================
+   PAGE TITLE
+========================================================= */
+
+.page-title-row {
+    display: block;
+}
+
+.page-header h1,
+.header-left h1 {
+    margin: 0;
+    color: #173f6f;
+    font-size: 32px;
+    line-height: 1.3;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.page-header p,
+.header-left p {
+    margin: 7px 0 0;
+    color: #64748b;
+    font-size: 15px;
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.primary-button,
+.secondary-button,
+.search-button,
+.view-button,
+.semester-view-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease,
+        color 0.25s ease;
+}
+
+.primary-button {
+    min-height: 43px;
+    padding: 0 17px;
+    border: 1px solid var(--primary);
+    background: var(--primary);
+    color: var(--white);
+}
+
+.primary-button:hover {
+    background: var(--primary-dark);
+    border-color: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 7px 18px rgba(37, 99, 166, 0.2);
+}
+
+.secondary-button {
+    min-height: 43px;
+    padding: 0 16px;
+    border: 1px solid #dce5ee;
+    background: var(--white);
+    color: #475569;
+}
+
+.secondary-button:hover {
+    background: var(--primary-light);
+    border-color: #c8d9e9;
+    color: var(--primary);
+    transform: translateY(-1px);
+}
+
+/* =========================================================
+   CANCEL BUTTON - ADD / EDIT EXAMINATION
+========================================================= */
+
+.modal-footer .secondary-button {
+    background: #f1f5f9;
+    border: 1px solid #cbd5e1;
+    color: #64748b;
+}
+
+.modal-footer .secondary-button i {
+    color: #64748b;
+}
+
+.modal-footer .secondary-button:hover {
+    background: #e2e8f0;
+    border-color: #94a3b8;
+    color: #475569;
+    transform: translateY(-1px);
+    box-shadow: 0 5px 12px rgba(100, 116, 139, 0.12);
+}
+
+.modal-footer .secondary-button:hover i {
+    color: #475569;
+}
+
+/* =========================================================
+   IMPORT / EXPORT / PRINT
+========================================================= */
+
+.import-button,
+.export-button,
+.print-button {
+    background: var(--white);
+}
+
+.import-button {
+    color: #087f5b;
+    border-color: #86efac;
+}
+
+.import-button i {
+    color: #087f5b;
+}
+
+.import-button:hover {
+    background: #ecfdf3;
+    border-color: #6ee7b7;
+    color: #047857;
+    transform: translateY(-1px);
+    box-shadow: 0 7px 18px rgba(22, 163, 74, 0.12);
+}
+
+.import-button:hover i {
+    color: #047857;
+}
+
+.export-button {
+    color: #dc2626;
+    border-color: #fecaca;
+}
+
+.export-button i {
+    color: #dc2626;
+}
+
+.export-button:hover {
+    background: #fff1f2;
+    border-color: #fda4af;
+    color: #b91c1c;
+    transform: translateY(-1px);
+    box-shadow: 0 7px 18px rgba(220, 38, 38, 0.12);
+}
+
+.export-button:hover i {
+    color: #b91c1c;
+}
+
+.print-button {
+    color: #7c3aed;
+    border-color: #ddd6fe;
+}
+
+.print-button i {
+    color: #7c3aed;
+}
+
+.print-button:hover {
+    background: #f5f3ff;
+    border-color: #c4b5fd;
+    color: #6d28d9;
+    transform: translateY(-1px);
+    box-shadow: 0 7px 18px rgba(124, 58, 237, 0.12);
+}
+
+.print-button:hover i {
+    color: #6d28d9;
+}
+
+/* =========================================================
+   DELETE ALL
+========================================================= */
+
+.delete-all-form {
+    margin: 0;
+}
+
+.delete-all-button {
+    border-color: var(--danger);
+    background: var(--danger);
+    color: var(--white);
+}
+
+.delete-all-button i {
+    color: var(--white);
+}
+
+.delete-all-button:hover {
+    background: #b91c1c;
+    border-color: #b91c1c;
+    color: var(--white);
+    transform: translateY(-1px);
+    box-shadow: 0 7px 18px rgba(220, 38, 38, 0.18);
+}
+
+/* =========================================================
+   SECTION HEADING
+========================================================= */
+
+.section-heading {
+    margin: 0 0 18px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.section-heading h2 {
+    margin: 0;
+    color: #1e293b;
+    font-size: 19px;
+    font-weight: 650;
+}
+
+.section-heading p {
+    margin: 3px 0 0;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.count-badge,
+.semester-count {
+    padding: 6px 11px;
+    border-radius: 20px;
+    background: var(--primary-light);
+    color: var(--primary);
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* =========================================================
+   DEPARTMENT GRID
+========================================================= */
+
+.department-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
+
+/* =========================================================
+   DEPARTMENT CARD
+========================================================= */
+
+.department-card {
+    position: relative;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 23px;
+    box-shadow: 0 7px 25px rgba(15, 50, 90, 0.05);
+    overflow: hidden;
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.department-card:hover {
+    transform: translateY(-4px);
+    border-color: #cdddea;
+    box-shadow: 0 15px 35px rgba(15, 50, 90, 0.1);
+}
+
+.department-card::after {
+    content: "";
+    position: absolute;
+    right: -45px;
+    bottom: -50px;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background: var(--primary-light);
+    opacity: 0.55;
+}
+
+.department-card-top {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.department-icon {
+    width: 49px;
+    height: 49px;
+    border-radius: 14px;
+    background: #123b6d;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 19px;
+}
+
+.department-code {
+    padding: 6px 10px;
+    border-radius: 9px;
+    background: #f8fafc;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.department-card-body {
+    position: relative;
+    z-index: 1;
+    padding: 20px 0 18px;
+}
+
+.department-card-body h3 {
+    margin: 0 0 9px;
+    color: #1e293b;
+    font-size: 17px;
+    line-height: 1.45;
+    font-weight: 650;
+    text-transform: capitalize;
+}
+
+.student-count {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.student-count i {
+    color: var(--primary);
+}
+
+.view-button {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    min-height: 42px;
+    padding: 0 14px;
+    border: 1px solid #dbe7f2;
+    background: #f8fbff;
+    color: var(--primary);
+}
+
+.view-button:hover {
+    background: var(--primary);
+    color: var(--white);
+    border-color: var(--primary);
+}
+
+.view-button i,
+.semester-view-button i {
+    transition: transform 0.25s ease;
+}
+
+.view-button:hover i,
+.semester-view-button:hover i {
+    transform: translateX(3px);
+}
+
+/* =========================================================
+   SUMMARY CARDS
+========================================================= */
+
+.department-summary,
+.timetable-summary {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.timetable-summary {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.summary-item {
+    min-width: 0;
+    padding: 17px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+}
+
+.summary-icon {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    border-radius: 11px;
+    background: var(--primary-light);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.summary-item div:last-child {
+    min-width: 0;
+}
+
+.summary-item span {
+    display: block;
+    color: var(--light-muted);
+    font-size: 10px;
+}
+
+.summary-item strong {
+    display: block;
+    margin-top: 1px;
+    color: #1e293b;
+    font-size: 13px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* =========================================================
+   YEAR LIST
+========================================================= */
+
+.year-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.year-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 6px 22px rgba(15, 50, 90, 0.04);
+}
+
+.year-card-header {
+    padding: 18px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    border-bottom: 1px solid var(--border-light);
+    background: #fbfdff;
+}
+
+.year-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.year-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: #123b6d;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.year-heading h3 {
+    margin: 0;
+    color: #1e293b;
+    font-size: 16px;
+    font-weight: 650;
+}
+
+.year-heading p {
+    margin: 2px 0 0;
+    color: var(--light-muted);
+    font-size: 10px;
+}
+
+.semester-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    padding: 18px;
+}
+
+.semester-card {
+    min-width: 0;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    background: var(--white);
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        transform 0.25s ease;
+}
+
+.semester-card:hover {
+    border-color: #cbddea;
+    box-shadow: 0 8px 20px rgba(15, 50, 90, 0.07);
+    transform: translateY(-2px);
+}
+
+.semester-number {
+    width: 45px;
+    height: 45px;
+    min-width: 45px;
+    border-radius: 13px;
+    background: var(--primary);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.semester-content {
+    min-width: 0;
+    flex: 1;
+}
+
+.semester-label {
+    display: block;
+    color: #1e293b;
+    font-size: 13px;
+    font-weight: 650;
+}
+
+.semester-content strong {
+    display: block;
+    margin-top: 2px;
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.semester-view-button {
+    min-width: 78px;
+    min-height: 37px;
+    padding: 0 11px;
+    border: 1px solid #dbe7f2;
+    background: #f8fbff;
+    color: var(--primary);
+}
+
+.semester-view-button:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--white);
+}
+
+/* =========================================================
+   ACTION TOOLBAR
+========================================================= */
+
+.action-toolbar {
+    padding: 20px 22px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    box-shadow: 0 6px 20px rgba(15, 50, 90, 0.04);
+}
+
+.toolbar-title h2 {
+    margin: 0;
+    color: #1e293b;
+    font-size: 17px;
+    font-weight: 650;
+}
+
+.toolbar-title p {
+    margin: 3px 0 0;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.toolbar-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+/* =========================================================
+   SEARCH
+========================================================= */
+
+.search-card {
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+}
+
+.search-card form {
+    display: flex;
+    gap: 10px;
+}
+
+.search-input-wrapper {
+    position: relative;
+    flex: 1;
+}
+
+.search-input-wrapper > i {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--light-muted);
+}
+
+.search-input-wrapper input {
+    width: 100%;
+    height: 43px;
+    padding: 0 40px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    outline: none;
+    background: #fbfdff;
+    color: var(--text);
+    font-size: 12px;
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+.search-input-wrapper input:focus {
+    border-color: #a9c7e1;
+    background: var(--white);
+    box-shadow: 0 0 0 3px rgba(37, 99, 166, 0.08);
+}
+
+.clear-search {
+    position: absolute;
+    right: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--light-muted);
+    border: 0;
+    background: transparent;
+}
+
+.clear-search:hover {
+    color: var(--danger);
+}
+
+.search-button {
+    min-width: 78px;
+    padding: 0 15px;
+    border: 1px solid var(--primary);
+    background: var(--primary);
+    color: var(--white);
+}
+
+.search-button:hover {
+    background: var(--primary-dark);
+    border-color: var(--primary-dark);
+}
+
+/* =========================================================
+   TABLE CARD
+========================================================= */
+
+.table-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    box-shadow: 0 7px 25px rgba(15, 50, 90, 0.05);
+    overflow: hidden;
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.examination-table {
+    width: 100%;
+    min-width: 850px;
+    border-collapse: collapse;
+}
+
+.examination-table thead th {
+    padding: 15px 17px;
+    text-align: left;
+    background: #f8fbff;
+    border-bottom: 1px solid var(--border);
+    color: #475569;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.35px;
+}
+
+.examination-table tbody td {
+    padding: 15px 17px;
+    border-bottom: 1px solid #f1f5f9;
+    color: var(--text);
+    font-size: 12px;
+    vertical-align: middle;
+}
+
+.examination-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.examination-table tbody tr:hover {
+    background: #fbfdff;
+}
+
+.serial-number {
+    width: 45px;
+    color: var(--light-muted) !important;
+    font-weight: 600;
+}
+
+.paper-name {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 180px;
+}
+
+.paper-icon {
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    border-radius: 10px;
+    background: var(--primary-light);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.paper-name strong {
+    color: #1e293b;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.subject-code {
+    display: inline-flex;
+    padding: 5px 8px;
+    border-radius: 7px;
+    background: #f8fafc;
+    color: #475569;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.date-value {
+    color: #475569;
+    white-space: nowrap;
+}
+
+/* =========================================================
+   TIME VALUE
+========================================================= */
+
+.time-value {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    white-space: nowrap;
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.time-value > i {
+    color: #64748b;
+    font-size: 11px;
+}
+
+/* =========================================================
+   TABLE TIME DISPLAY - SMALL & GREY
+========================================================= */
+
+.time-range-display {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+    font-size: 11px;
+}
+
+.time-range-display .time-from,
+.time-range-display .time-to {
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.time-range-display .time-separator {
+    color: #94a3b8;
+    font-size: 10px;
+    font-weight: 500;
+}
+
+.duration-value {
+    color: var(--light-muted);
+    font-size: 11px;
+}
+
+.action-column {
+    width: 190px;
+    text-align: right !important;
+}
+
+.row-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 7px;
+}
+
+.icon-button {
+    min-height: 36px;
+    padding: 0 11px;
+    border: 1px solid #dce5ee;
+    border-radius: 9px;
+    background: #ffffff;
+    color: #2563a6;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        background 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.icon-button:hover {
+    background: #edf5fc;
+    border-color: #c6d9e9;
+    color: #2563a6;
+    transform: translateY(-1px);
+    box-shadow: 0 5px 12px rgba(37, 99, 166, 0.1);
+}
+
+.icon-button.danger {
+    color: #dc2626;
+}
+
+.icon-button.danger:hover {
+    background: var(--danger-light);
+    border-color: #fecdd3;
+    color: var(--danger);
+    box-shadow: 0 5px 12px rgba(220, 38, 38, 0.1);
+}
+
+.icon-button.edit-button:hover {
+    background: var(--primary-light);
+    border-color: #c6d9e9;
+    color: var(--primary);
+}
+
+.icon-button i {
+    font-size: 11px;
+}
+
+.icon-button span {
+    font-size: 10px;
+}
+
+.delete-form {
+    margin: 0;
+}
+
+.table-footer {
+    padding: 13px 17px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    border-top: 1px solid var(--border-light);
+    color: var(--light-muted);
+    font-size: 10px;
+    /* =========================================================
+   EXAMINATION NOTIFICATION ICONS
+========================================================= */
+
+.notification-icon.examination-added {
+    background: #eef2ff;
+    color: #4f46a5;
+    border: 1px solid #dcdffb;
+}
+
+.notification-icon.examination-edited {
+    background: #eff6ff;
+    color: #2563eb;
+    border: 1px solid #bfdbfe;
+}
+
+.notification-icon.examination-deleted {
+    background: #fff1f2;
+    color: #dc2626;
+    border: 1px solid #fecdd3;
+}
+
+.notification-icon.examination-imported {
+    background: #ecfdf3;
+    color: #087f5b;
+    border: 1px solid #bbf7d0;
+}
+
+.notification-icon.examination-exported {
+    background: #f5f3ff;
+    color: #7c3aed;
+    border: 1px solid #ddd6fe;
+}
+}
+
+.table-footer strong {
+    color: var(--muted);
+}
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.empty-state {
+    padding: 45px 25px;
+    text-align: center;
+}
+
+.empty-state.large {
+    padding: 65px 25px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    box-shadow: 0 7px 25px rgba(15, 50, 90, 0.04);
+}
+
+.table-empty {
+    padding: 0 !important;
+}
+
+.empty-icon {
+    width: 58px;
+    height: 58px;
+    margin: 0 auto 15px;
+    border-radius: 17px;
+    background: var(--primary-light);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+}
+
+.empty-state h3 {
+    margin: 0;
+    color: #1e293b;
+    font-size: 16px;
+    font-weight: 650;
+}
+
+.empty-state p {
+    max-width: 520px;
+    margin: 6px auto 18px;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+/* =========================================================
+   FLASH MESSAGE
+========================================================= */
+
+.flash-message {
+    margin-bottom: 20px;
+    padding: 13px 15px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    border: 1px solid;
+    border-radius: 14px;
+}
+
+.flash-message.success {
+    background: var(--success-light);
+    border-color: #bbf7d0;
+    color: #166534;
+}
+
+.flash-message.error {
+    background: var(--danger-light);
+    border-color: #fecdd3;
+    color: #991b1b;
+}
+
+.flash-icon {
+    font-size: 15px;
+}
+
+.flash-content {
+    flex: 1;
+    font-size: 11px;
+    font-weight: 500;
+}
+
+.flash-close {
+    border: 0;
+    background: transparent;
+    color: inherit;
+    opacity: 0.65;
+}
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    padding: 25px;
+    background: rgba(15, 35, 60, 0.5);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+        opacity 0.25s ease,
+        visibility 0.25s ease;
+    z-index: 2000;
+}
+
+.modal-overlay.show {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+.modal-card {
+    width: min(620px, 100%);
+    max-height: calc(100vh - 50px);
+    overflow-y: auto;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 21px;
+    box-shadow: 0 25px 70px rgba(15, 50, 90, 0.22);
+    transform: translateY(12px) scale(0.98);
+    transition: transform 0.25s ease;
+}
+
+.modal-overlay.show .modal-card {
+    transform: translateY(0) scale(1);
+}
+
+.modal-header {
+    padding: 21px 23px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: #1e293b;
+    font-size: 18px;
+    font-weight: 650;
+}
+
+.modal-header p {
+    margin: 3px 0 0;
+    color: var(--muted);
+    font-size: 10px;
+}
+
+.modal-close {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: #f8fafc;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close:hover {
+    background: var(--danger-light);
+    border-color: #fecdd3;
+    color: var(--danger);
+}
+
+.modal-card form {
+    padding: 22px;
+}
+
+.modal-selection {
+    margin-bottom: 18px;
+    padding: 12px 14px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    background: #f8fbff;
+    border: 1px solid #e4eef7;
+    border-radius: 13px;
+}
+
+.modal-selection span {
+    display: block;
+    color: var(--light-muted);
+    font-size: 9px;
+}
+
+.modal-selection strong {
+    display: block;
+    margin-top: 1px;
+    color: #334155;
+    font-size: 11px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 7px;
+    color: #475569;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.form-group label span {
+    color: var(--danger);
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-wrapper > i {
+    position: absolute;
+    left: 13px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--light-muted);
+    font-size: 12px;
+    pointer-events: none;
+}
+
+.input-wrapper input,
+.input-wrapper select,
+.input-wrapper textarea {
+    width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    outline: none;
+    background: var(--white);
+    color: var(--text);
+    font-size: 11px;
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.input-wrapper input,
+.input-wrapper select {
+    height: 43px;
+}
+
+.input-wrapper input {
+    padding: 0 13px 0 38px;
+}
+
+.input-wrapper select {
+    padding: 0 13px;
+}
+
+.input-wrapper textarea {
+    min-height: 100px;
+    padding: 12px 13px;
+    resize: vertical;
+}
+
+.input-wrapper input:focus,
+.input-wrapper select:focus,
+.input-wrapper textarea:focus {
+    border-color: #a9c7e1;
+    box-shadow: 0 0 0 3px rgba(37, 99, 166, 0.08);
+}
+
+.disabled-input input {
+    background: #f8fafc;
+    color: var(--light-muted);
+    cursor: not-allowed;
+}
+
+.duration-note {
+    margin-top: 16px;
+    padding: 11px 13px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    background: var(--warning-light);
+    border: 1px solid #fde68a;
+    border-radius: 11px;
+    color: #92400e;
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.duration-note i {
+    margin-top: 2px;
+}
+
+.duration-note code {
+    font-family: monospace;
+    font-size: 10px;
+}
+
+.modal-footer {
+    margin-top: 21px;
+    padding-top: 17px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
+    border-top: 1px solid var(--border-light);
+}
+
+/* =========================================================
+   PRINT HEADER
+========================================================= */
+
+.print-header {
+    display: none;
+}
+
+/* =========================================================
+   PROFESSIONAL IMPORT MODAL
+========================================================= */
+
+.import-modal {
+    width: min(580px, 100%);
+    max-width: 580px;
+    overflow: hidden;
+    background: #ffffff;
+    border-radius: 16px;
+}
+
+/* =========================================================
+   IMPORT MODAL HEADER
+========================================================= */
+
+.import-modal .modal-header {
+    padding: 22px 24px;
+    background: #ffffff;
+    border-bottom: 1px solid var(--border-light);
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.import-modal .modal-header > div {
+    min-width: 0;
+}
+
+.import-modal .modal-icon {
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 13px;
+    background: #ecfdf3;
+    color: #087f5b;
+    font-size: 20px;
+    border: 1px solid #bbf7d0;
+    margin-bottom: 10px;
+}
+
+.import-modal .modal-header h2 {
+    margin: 0;
+    color: #1e293b;
+    font-size: 17px;
+    font-weight: 650;
+    line-height: 1.4;
+}
+
+.import-modal .modal-header p {
+    margin: 3px 0 0;
+    color: var(--muted);
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+/* =========================================================
+   CLOSE BUTTON
+========================================================= */
+
+.import-modal .modal-header > button {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    color: #64748b;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.import-modal .modal-header > button:hover {
+    background: #f1f5f9;
+    color: #334155;
+}
+
+/* =========================================================
+   SELECTED DEPARTMENT / SEMESTER
+========================================================= */
+
+.import-selected {
+    margin: 18px 24px;
+    padding: 14px 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    background: #f8fbff;
+    border: 1px solid #e1edf7;
+    border-radius: 13px;
+}
+
+.import-selected div {
+    min-width: 0;
+}
+
+.import-selected span {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--muted);
+    font-size: 9px;
+}
+
+.import-selected strong {
+    display: block;
+    color: #334155;
+    font-size: 12px;
+    font-weight: 650;
+}
+
+/* =========================================================
+   FILE UPLOAD
+========================================================= */
+
+.file-upload {
+    position: relative;
+    min-height: 175px;
+    margin: 0 24px 18px;
+    padding: 28px 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    border: 1.5px dashed #b8ccdf;
+    border-radius: 16px;
+    background: #fbfdff;
+    color: var(--primary);
+    text-align: center;
+    cursor: pointer;
+    transition:
+        background 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.file-upload:hover {
+    background: #f4fbf7;
+    border-color: #6ee7b7;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 20px rgba(22, 163, 74, 0.07);
+}
+
+/* =========================================================
+   EXCEL ICON
+========================================================= */
+
+.file-upload > i {
+    width: 52px;
+    height: 52px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    background: #ecfdf3;
+    color: #087f5b;
+    border: 1px solid #bbf7d0;
+    font-size: 22px;
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease;
+}
+
+.file-upload:hover > i {
+    transform: translateY(-2px) scale(1.03);
+    background: #dcfce7;
+}
+
+.file-upload h3 {
+    margin: 0;
+    color: #334155;
+    font-size: 12px;
+    font-weight: 650;
+}
+
+.file-upload p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 10px;
+}
+
+/* =========================================================
+   FILE INPUT
+========================================================= */
+
+.file-upload input[type="file"] {
+    width: 100%;
+    margin-top: 10px;
+    padding: 8px;
+    font-size: 11px;
+    color: #475569;
+    border: 1px solid #dbe7f0;
+    border-radius: 8px;
+    background: #ffffff;
+    cursor: pointer;
+}
+
+.file-upload input[type="file"]::file-selector-button {
+    padding: 7px 12px;
+    margin-right: 8px;
+    border: none;
+    border-radius: 7px;
+    background: var(--primary);
+    color: #ffffff;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.file-upload input[type="file"]::file-selector-button:hover {
+    opacity: 0.9;
+}
+
+/* =========================================================
+   SELECTED FILE NAME
+========================================================= */
+
+#selectedFileName {
+    margin-top: 5px;
+    color: var(--muted);
+    font-size: 10px;
+}
+
+/* =========================================================
+   MODAL ACTIONS
+========================================================= */
+
+.import-modal .modal-actions {
+    padding: 0 24px 22px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+/* =========================================================
+   ALL IMPORT MODAL BUTTONS
+========================================================= */
+
+.import-modal .modal-actions .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+/* =========================================================
+   CANCEL BUTTON - IMPORT
+========================================================= */
+
+.import-modal .modal-actions .btn.btn-secondary {
+    background-color: #f1f5f9 !important;
+    border: 1px solid #cbd5e1 !important;
+    color: #475569 !important;
+}
+
+.import-modal .modal-actions .btn.btn-secondary i {
+    color: #475569 !important;
+}
+
+.import-modal .modal-actions .btn.btn-secondary:hover {
+    background-color: #e2e8f0 !important;
+    border-color: #94a3b8 !important;
+    color: #334155 !important;
+}
+
+.import-modal .modal-actions .btn.btn-secondary:hover i {
+    color: #334155 !important;
+}
+
+/* =========================================================
+   IMPORT EXAMINATIONS - GREEN
+========================================================= */
+
+.import-modal .modal-actions .import-submit-button {
+    background: #087f5b !important;
+    background-color: #087f5b !important;
+    border: 1px solid #087f5b !important;
+    color: #ffffff !important;
+}
+
+.import-modal .modal-actions .import-submit-button i {
+    color: #ffffff !important;
+}
+
+.import-modal .modal-actions .import-submit-button:hover {
+    background: #047857 !important;
+    background-color: #047857 !important;
+    border-color: #047857 !important;
+    color: #ffffff !important;
+}
+
+/* =========================================================
+   MOBILE IMPORT MODAL
+========================================================= */
+
+@media (max-width: 600px) {
+
+    .import-modal {
+        width: calc(100% - 20px);
+    }
+
+    .import-selected {
+        grid-template-columns: 1fr;
+    }
+
+    .import-modal .modal-actions {
+        flex-direction: column;
+    }
+
+    .import-modal .modal-actions .btn {
+        width: 100%;
+    }
+}
+
+/* =========================================================
+   PROFESSIONAL EXAM TIME PICKER
+   FROM -> TO
+========================================================= */
+
+.exam-time-range {
+    width: 100%;
+    display: flex;
+    align-items: stretch;
+    gap: 12px;
+    padding: 14px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.exam-time-range:focus-within {
+    border-color: #2563eb;
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.08),
+        0 4px 12px rgba(15, 23, 42, 0.05);
+}
+
+/* =========================================================
+   FROM / TO CARD
+========================================================= */
+
+.exam-time-field {
+    flex: 1;
+    min-width: 0;
+    padding: 12px 14px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    box-sizing: border-box;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.exam-time-field:focus-within {
+    border-color: #93c5fd;
+    box-shadow: 0 2px 8px rgba(37, 99, 235, 0.08);
+}
+
+/* =========================================================
+   TIME LABEL
+========================================================= */
+
+.exam-time-field label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0 0 9px;
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+/* =========================================================
+   TIME CONTROLS
+========================================================= */
+
+.exam-time-controls {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+}
+
+.exam-time-controls select {
+    height: 42px;
+    padding: 0 9px;
+    border: 1px solid #dbe3ee;
+    border-radius: 9px;
+    background: #f8fafc;
+    color: #0f172a;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    outline: none;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.exam-time-controls select:hover {
+    background: #ffffff;
+    border-color: #94a3b8;
+}
+
+.exam-time-controls select:focus {
+    background: #ffffff;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+}
+
+/* =========================================================
+   HOUR
+========================================================= */
+
+.exam-time-controls .time-hour {
+    width: 58px;
+    flex: 0 0 58px;
+}
+
+/* =========================================================
+   MINUTE
+========================================================= */
+
+.exam-time-controls .time-minute {
+    width: 58px;
+    flex: 0 0 58px;
+}
+
+/* =========================================================
+   AM / PM
+========================================================= */
+
+.exam-time-controls .time-period {
+    width: 68px;
+    flex: 0 0 68px;
+    font-weight: 700;
+}
+
+/* =========================================================
+   COLON
+========================================================= */
+
+.time-colon {
+    width: 5px;
+    flex: 0 0 5px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #334155;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+/* =========================================================
+   FROM -> TO ARROW
+========================================================= */
+
+.time-range-arrow {
+    width: 34px;
+    flex: 0 0 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2563eb;
+    font-size: 14px;
+}
+
+.time-range-arrow i {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #eff6ff;
+    border: 1px solid #dbeafe;
+    border-radius: 50%;
+    color: #2563eb;
+}
+
+/* =========================================================
+   CLOCK ICON
+========================================================= */
+
+.exam-time-icon {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 2px;
+    background: #eff6ff;
+    border-radius: 8px;
+    color: #2563eb;
+    font-size: 14px;
+}
+
+/* =========================================================
+   TIME PICKER ERROR
+========================================================= */
+
+.exam-time-range.has-error {
+    border-color: #fca5a5;
+    background: #fffafa;
+}
+
+.exam-time-range.has-error .exam-time-field {
+    border-color: #fca5a5;
+}
+
+.exam-time-range.has-error .exam-time-controls select {
+    border-color: #ef4444;
+}
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1100px) {
+
+    .department-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .timetable-summary {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 900px) {
+
+    .exam-time-range {
+        gap: 8px;
+        padding: 12px;
+    }
+
+    .exam-time-field {
+        padding: 10px;
+    }
+
+    .exam-time-controls {
+        gap: 4px;
+    }
+
+    .exam-time-controls select {
+        height: 40px;
+        padding: 0 6px;
+        font-size: 13px;
+    }
+
+    .exam-time-controls .time-hour,
+    .exam-time-controls .time-minute {
+        width: 52px;
+        flex-basis: 52px;
+    }
+
+    .exam-time-controls .time-period {
+        width: 62px;
+        flex-basis: 62px;
+    }
+
+    .time-colon {
+        height: 40px;
+    }
+
+    .time-range-arrow {
+        width: 28px;
+        flex-basis: 28px;
+    }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .sidebar {
+        top: 10px;
+        width: 270px;
+        height: calc(100vh - 20px);
+        border-radius: 20px;
+    }
+
+    .sidebar-header {
+        height: 82px;
+        padding: 0 22px;
+    }
+
+    .sidebar-header h2 {
+        font-size: 25px;
+    }
+
+    .sidebar .menu {
+        padding: 15px;
+    }
+
+    .sidebar .menu li a {
+        padding: 14px 16px;
+        gap: 13px;
+        font-size: 14px;
+    }
+
+    .page-container {
+        width: min(100% - 24px, 700px);
+        padding-top: 20px;
+    }
+
+    .page-header {
+        padding: 23px;
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .page-title-icon {
+        width: 50px;
+        height: 50px;
+        min-width: 50px;
+    }
+
+    .page-header h1 {
+        font-size: 23px;
+    }
+
+    .page-header p {
+        font-size: 11px;
+    }
+
+    .department-grid,
+    .department-summary,
+    .timetable-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .semester-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .action-toolbar {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .toolbar-actions {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .search-card form {
+        flex-direction: column;
+    }
+
+    .search-button {
+        width: 100%;
+    }
+
+    /* Time picker mobile */
+
+    .exam-time-range {
+        flex-direction: column;
+        gap: 8px;
+        padding: 10px;
+        border-radius: 14px;
+    }
+
+    .exam-time-field {
+        width: 100%;
+        padding: 12px;
+    }
+
+    .exam-time-controls {
+        gap: 5px;
+    }
+
+    .exam-time-controls select {
+        height: 42px;
+        font-size: 13px;
+    }
+
+    .exam-time-controls .time-hour,
+    .exam-time-controls .time-minute,
+    .exam-time-controls .time-period {
+        width: auto;
+        flex: 1;
+    }
+
+    .time-colon {
+        height: 42px;
+        flex: 0 0 8px;
+        width: 8px;
+    }
+
+    .time-range-arrow {
+        width: 100%;
+        height: 22px;
+        flex: 0 0 22px;
+    }
+
+    .time-range-arrow i {
+        width: 26px;
+        height: 26px;
+        transform: rotate(90deg);
+    }
+
+    .modal-overlay {
+        padding: 12px;
+    }
+
+    .modal-card {
+        max-height: calc(100vh - 24px);
+        border-radius: 17px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full-width {
+        grid-column: auto;
+    }
+}
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 576px) {
+
+    .page-container {
+        width: calc(100% - 16px);
+        padding-bottom: 35px;
+    }
+
+    .page-header {
+        padding: 19px;
+        border-radius: 17px;
+    }
+
+    .page-title-row {
+        align-items: flex-start;
+    }
+
+    .page-title-icon {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        border-radius: 12px;
+        font-size: 17px;
+    }
+
+    .page-header h1 {
+        font-size: 20px;
+    }
+
+    .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .department-card {
+        padding: 19px;
+    }
+
+    .year-card-header {
+        padding: 16px;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .semester-grid {
+        padding: 13px;
+    }
+
+    .semester-card {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+
+    .semester-view-button {
+        width: 100%;
+    }
+
+    .toolbar-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        width: 100%;
+    }
+
+    .toolbar-actions .primary-button,
+    .toolbar-actions .secondary-button,
+    .toolbar-actions button,
+    .toolbar-actions a,
+    .toolbar-actions form {
+        width: 100%;
+    }
+
+    .toolbar-actions form .secondary-button {
+        width: 100%;
+    }
+
+    .modal-selection {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-footer {
+        flex-direction: column-reverse;
+    }
+
+    .modal-footer .primary-button,
+    .modal-footer .secondary-button {
+        width: 100%;
+    }
+
+    .table-footer {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    /* Import modal */
+
+    .import-modal-card {
+        width: 95%;
+        max-width: 580px;
+    }
+
+    .import-modal-header {
+        padding: 18px;
+    }
+
+    .import-modal-title {
+        gap: 10px;
+    }
+
+    .import-modal-icon {
+        width: 42px;
+        height: 42px;
+        min-width: 42px;
+        border-radius: 11px;
+        font-size: 17px;
+    }
+
+    .import-modal-title h3 {
+        font-size: 15px;
+    }
+
+    .import-modal-title p {
+        font-size: 9px;
+    }
+
+    .import-info {
+        padding: 12px;
+    }
+
+    .file-upload {
+        min-height: 155px;
+        padding: 22px 15px;
+    }
+
+    .file-upload-icon {
+        width: 47px;
+        height: 47px;
+        border-radius: 13px;
+        font-size: 20px;
+    }
+
+    .selected-file {
+        padding: 10px;
+    }
+
+    /* Time picker */
+
+    .exam-time-range {
+        padding: 8px;
+    }
+
+    .exam-time-field {
+        padding: 10px;
+    }
+
+    .exam-time-field label {
+        font-size: 10px;
+        margin-bottom: 7px;
+    }
+
+    .exam-time-controls {
+        gap: 3px;
+    }
+
+    .exam-time-controls select {
+        height: 40px;
+        padding: 0 5px;
+        font-size: 12px;
+        border-radius: 8px;
+    }
+
+    .time-colon {
+        height: 40px;
+        font-size: 14px;
+    }
+
+    .time-range-arrow {
+        height: 20px;
+        flex-basis: 20px;
+    }
+}
+
+/* =========================================================
+   PRINT
+========================================================= */
+
+@media print {
+
+    @page {
+        size: A4 landscape;
+        margin: 12mm;
+    }
+
+    body {
+        background: #ffffff;
+        color: #000000;
+    }
+
+    .sidebar,
+    .overlay,
+    .breadcrumb,
+    .page-header,
+    .timetable-summary,
+    .action-toolbar,
+    .search-card,
+    .table-footer,
+    .action-column,
+    .flash-message,
+    .modal-overlay {
+        display: none !important;
+    }
+
+    .page-container {
+        width: 100%;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .print-header {
+        display: block;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .print-title {
+        margin-bottom: 6px;
+        color: #111827;
+        font-size: 20px;
+        font-weight: 700;
+    }
+
+    .print-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        color: #374151;
+        font-size: 12px;
+    }
+
+    .table-card {
+        border: 1px solid #cbd5e1;
+        border-radius: 0;
+        box-shadow: none;
+        overflow: visible;
+    }
+
+    .table-responsive {
+        overflow: visible;
+    }
+
+    .examination-table {
+        min-width: 0;
+    }
+
+    .examination-table thead th {
+        background: #f1f5f9;
+        color: #111827;
+        border-color: #cbd5e1;
+        font-size: 9px;
+    }
+
+    .examination-table tbody td {
+        border-color: #cbd5e1;
+        color: #111827;
+        font-size: 10px;
+    }
+
+    .paper-icon {
+        display: none;
+    }
+
+    .paper-name strong {
+        color: #111827;
+    }
+
+    .subject-code {
+        background: transparent;
+        padding: 0;
+    }
+
+    .time-value i {
+        display: none;
+    }
+
+    .time-range-display .time-from,
+    .time-range-display .time-to {
+        color: #111827;
+        font-size: 10px;
+    }
+
+    .time-range-display .time-separator {
+        color: #6b7280;
+        font-size: 9px;
+    }
+}
+
+/* =========================================================
+   ADD / EDIT EXAMINATION MODAL
+   CANCEL BUTTON
+========================================================= */
+
+#examinationModal .modal-footer .btn.btn-secondary {
+    min-height: 43px;
+    padding: 0 16px;
+
+    background: #f1f5f9 !important;
+    background-color: #f1f5f9 !important;
+
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 12px;
+
+    color: #64748b !important;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.25s ease,
+        border-color 0.25s ease,
+        color 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+/* Cancel icon */
+#examinationModal .modal-footer .btn.btn-secondary i {
+    color: #64748b !important;
+}
+
+/* Cancel hover */
+#examinationModal .modal-footer .btn.btn-secondary:hover {
+    background: #e2e8f0 !important;
+    background-color: #e2e8f0 !important;
+
+    border-color: #94a3b8 !important;
+
+    color: #334155 !important;
+
+    transform: translateY(-1px);
+
+    box-shadow: 0 5px 12px rgba(15, 23, 42, 0.08);
+}
+
+#examinationModal .modal-footer .btn.btn-secondary:hover i {
+    color: #334155 !important;
+}
+
+
+/* =========================================================
+   ADD / EDIT EXAMINATION
+   TIME RANGE
+========================================================= */
+
+#examinationModal .time-range-wrapper {
+    width: 100%;
+
+    display: flex;
+    align-items: stretch;
+
+    gap: 12px;
+
+    padding: 12px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 14px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   FROM / TO TIME FIELD
+========================================================= */
+
+#examinationModal .time-field {
+    flex: 1;
+    min-width: 0;
+
+    padding: 11px 12px;
+
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 11px;
+}
+
+
+/* =========================================================
+   FROM / TO LABEL
+========================================================= */
+
+#examinationModal .time-field-label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #94a3b8;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 9px;
+
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.05em;
+}
+
+
+/* =========================================================
+   TIME SELECTS
+========================================================= */
+
+#examinationModal .time-selects {
+    display: flex;
+
+    align-items: center;
+
+    gap: 4px;
+
+    width: 100%;
+}
+
+
+/* =========================================================
+   TIME SELECT BOXES
+========================================================= */
+
+#examinationModal .time-selects select {
+    height: 38px;
+
+    padding: 0 7px;
+
+    background: #f8fafc;
+
+    border: 1px solid #dbe3ee;
+
+    border-radius: 8px;
+
+    color: #64748b !important;
+
+    font-family: "Poppins", sans-serif;
+
+    font-size: 11px !important;
+
+    font-weight: 500 !important;
+
+    outline: none;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* Hour */
+#examinationModal .time-selects select:nth-of-type(1) {
+    width: 52px;
+}
+
+
+/* Minute */
+#examinationModal .time-selects select:nth-of-type(2) {
+    width: 52px;
+}
+
+
+/* AM / PM */
+#examinationModal .time-selects select:nth-of-type(3) {
+    width: 62px;
+}
+
+
+/* Time select hover */
+#examinationModal .time-selects select:hover {
+    background: #ffffff;
+
+    border-color: #cbd5e1;
+
+    color: #475569 !important;
+}
+
+
+/* Time select focus */
+#examinationModal .time-selects select:focus {
+    background: #ffffff;
+
+    border-color: #93c5fd;
+
+    color: #475569 !important;
+
+    box-shadow: 0 0 0 3px rgba(37, 99, 166, 0.08);
+}
+
+
+/* =========================================================
+   COLON
+========================================================= */
+
+#examinationModal .time-selects > span {
+    color: #94a3b8;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    line-height: 38px;
+}
+
+
+/* =========================================================
+   FROM -> TO ARROW
+========================================================= */
+
+#examinationModal .time-range-arrow {
+    width: 30px;
+
+    min-width: 30px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    align-self: center;
+
+    color: #94a3b8;
+
+    font-size: 15px;
+
+    font-weight: 500;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+    #examinationModal .time-range-wrapper {
+        flex-direction: column;
+
+        gap: 8px;
+
+        padding: 10px;
+    }
+
+    #examinationModal .time-field {
+        width: 100%;
+
+        padding: 10px;
+    }
+
+    #examinationModal .time-selects {
+        gap: 4px;
+    }
+
+    #examinationModal .time-selects select {
+        height: 40px;
+
+        flex: 1;
+
+        width: auto !important;
+
+        font-size: 11px !important;
+    }
+
+    #examinationModal .time-range-arrow {
+        width: 100%;
+
+        min-width: 100%;
+
+        height: 20px;
+    }
+
+    #examinationModal .time-range-arrow {
+        transform: rotate(90deg);
+    }
+
+    #examinationModal .modal-footer {
+        flex-direction: column-reverse;
+    }
+
+    #examinationModal .modal-footer .btn.btn-secondary,
+    #examinationModal .modal-footer .primary-button {
+        width: 100%;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 576px) {
+
+    #examinationModal .time-range-wrapper {
+        padding: 8px;
+
+        border-radius: 12px;
+    }
+
+    #examinationModal .time-field {
+        padding: 9px;
+    }
+
+    #examinationModal .time-field-label {
+        font-size: 9px;
+
+        margin-bottom: 6px;
+    }
+
+    #examinationModal .time-selects select {
+        height: 38px;
+
+        padding: 0 5px;
+
+        font-size: 10px !important;
+
+        border-radius: 7px;
+    }
+
+    #examinationModal .time-selects > span {
+        font-size: 11px;
+
+        line-height: 38px;
+    }
+
+    #examinationModal .modal-footer .btn.btn-secondary {
+        min-height: 42px;
+
+        font-size: 11px;
+    }
+}

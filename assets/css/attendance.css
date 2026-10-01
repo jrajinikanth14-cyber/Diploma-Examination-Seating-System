@@ -1,0 +1,2551 @@
+/* =========================================================
+   ESMS ATTENDANCE MODULE
+   PREMIUM NAVY BLUE + WHITE
+   SAME DESIGN SYSTEM AS STUDENTS MODULE
+========================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #f6f9fd;
+    color: #1e293b;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+}
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.attendance-page {
+    min-height: 100vh;
+    padding: 30px;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.page-header {
+    position: relative;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+
+    padding: 32px 38px;
+    margin-bottom: 35px;
+
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 22px;
+
+    box-shadow: 0 12px 35px rgba(15, 23, 42, 0.07);
+}
+
+.header-left {
+    flex: 1;
+}
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    margin-bottom: 12px;
+
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+.breadcrumb a {
+    color: #2563a6;
+    font-weight: 500;
+}
+
+.breadcrumb a i {
+    margin-right: 5px;
+}
+
+.header-left h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #173f6f;
+}
+
+.header-left p {
+    margin-top: 7px;
+    font-size: 15px;
+    color: #64748b;
+}
+
+
+/* =========================================================
+   ATTENDANCE TOPBAR
+========================================================= */
+
+.attendance-title-box {
+    width: 100%;
+    min-height: 52px;
+    display: flex;
+    align-items: center;
+    padding-right: 125px;
+}
+
+.dynamic-title-left {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+}
+
+/* =========================================================
+   BACK BUTTON - ACTUAL TOP HEADER RIGHT CORNER
+========================================================= */
+
+.back-button {
+    position: absolute;
+    top: 50%;
+    right: 38px;
+    transform: translateY(-50%);
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    min-width: 82px;
+    height: 38px;
+    padding: 0 14px;
+
+    background: #f8fafc;
+    border: 1px solid #dbe3ee;
+    border-radius: 9px;
+
+    color: #1e4f80;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+
+    transition: background 0.2s ease,
+                border-color 0.2s ease,
+                color 0.2s ease,
+                box-shadow 0.2s ease,
+                transform 0.2s ease;
+
+    z-index: 100;
+}
+
+.back-button:hover {
+    background: #edf5fc;
+    border-color: #2563a6;
+    color: #2563a6;
+    transform: translateY(-50%) translateX(-2px);
+    box-shadow: 0 5px 12px rgba(37, 99, 166, 0.10);
+}
+
+.back-button i {
+    font-size: 11px;
+}
+
+
+/* =========================================================
+   MENU BUTTON
+========================================================= */
+
+.menu-button,
+.menu-toggle {
+    width: 44px;
+    height: 44px;
+    flex: 0 0 44px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #2563a6;
+    border-radius: 12px;
+
+    background: #2563a6;
+    color: #ffffff;
+
+    cursor: pointer;
+    font-size: 17px;
+
+    transition:
+        transform 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.menu-button:hover,
+.menu-toggle:hover {
+    background: #1e4f80;
+    border-color: #1e4f80;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 18px rgba(37, 99, 166, 0.20);
+}
+
+
+
+/* =========================================================
+   ALERT
+========================================================= */
+
+.alert {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 16px 20px;
+    margin-bottom: 28px;
+
+    border-radius: 13px;
+
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.alert-success {
+    background: #ecfdf5;
+    border: 1px solid #bbf7d0;
+    color: #15803d;
+}
+
+.alert-error {
+    background: #fff1f2;
+    border: 1px solid #fecdd3;
+    color: #dc2626;
+}
+
+/* Compatibility aliases for existing attendance.php markup */
+.alert.success {
+    background: #ecfdf5;
+    border: 1px solid #bbf7d0;
+    color: #15803d;
+}
+
+.alert.error {
+    background: #fff1f2;
+    border: 1px solid #fecdd3;
+    color: #dc2626;
+}
+
+/* =========================================================
+   MODULE SECTION
+========================================================= */
+
+.module-section {
+    margin-bottom: 34px;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.section-label {
+    display: inline-block;
+
+    margin-bottom: 8px;
+
+    color: #2563a6;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: 1.3px;
+}
+
+.section-heading h2 {
+    font-size: 27px;
+    font-weight: 700;
+    line-height: 1.25;
+
+    color: #1e293b;
+}
+
+.section-heading p {
+    margin-top: 7px;
+
+    font-size: 14px;
+    color: #94a3b8;
+}
+
+/* =========================================================
+   COMMON CARD
+========================================================= */
+
+.selection-card,
+.exam-selection-card,
+.selected-exam-banner,
+.allocation-info-card,
+.attendance-toolbar,
+.hall-register-card,
+.attendance-register {
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 22px;
+
+    box-shadow:
+        0 12px 35px rgba(15, 23, 42, 0.07);
+}
+
+/* =========================================================
+   DATE SELECTION
+========================================================= */
+
+.selection-card {
+    padding: 26px 28px;
+    margin-bottom: 28px;
+}
+
+.selection-header {
+    display: flex;
+    align-items: center;
+
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.heading-icon {
+    width: 54px;
+    height: 54px;
+    flex: 0 0 54px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 16px;
+
+    background: #edf5fc;
+    color: #2563a6;
+
+    font-size: 22px;
+}
+
+.selection-header h2 {
+    font-size: 23px;
+    font-weight: 650;
+
+    color: #173f6f;
+}
+
+.selection-header p {
+    margin-top: 5px;
+
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+/* =========================================================
+   DATE FORM
+========================================================= */
+
+.date-selection-row {
+    display: flex;
+    align-items: flex-end;
+
+    gap: 14px;
+}
+
+.date-field {
+    flex: 1;
+    min-width: 0;
+}
+
+.date-field label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #334155;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.date-input-wrap {
+    position: relative;
+}
+
+.date-input-wrap input,
+.date-field input,
+input[type="date"] {
+    width: 100%;
+    height: 48px;
+
+    padding: 0 15px;
+
+    border: 1px solid #dce5ee;
+    border-radius: 11px;
+
+    background: #ffffff;
+    color: #334155;
+
+    font-size: 13px;
+
+    outline: none;
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.date-input-wrap input:focus,
+.date-field input:focus,
+input[type="date"]:focus {
+    border-color: #2563a6;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 166, 0.08);
+}
+
+/* =========================================================
+   DATE + SEARCH SAME LINE
+========================================================= */
+
+.date-form {
+    display: flex;
+    align-items: flex-end;
+
+    gap: 12px;
+    width: 100%;
+}
+
+.date-form-group {
+    display: flex;
+    flex-direction: column;
+
+    gap: 6px;
+}
+
+.date-form-group label {
+    color: #475569;
+
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.date-form-group input[type="date"] {
+    width: 175px;
+    height: 42px;
+
+    padding: 0 12px;
+
+    background: #ffffff;
+
+    border: 1px solid #dbe3ee;
+    border-radius: 9px;
+
+    color: #334155;
+
+    font-family: "Poppins", sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+
+    outline: none;
+
+    transition: all 0.2s ease;
+}
+
+.date-form-group input[type="date"]:focus {
+    border-color: #2563a6;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 166, 0.08);
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 9px;
+
+    min-height: 46px;
+
+    border: none;
+    border-radius: 12px;
+
+    padding: 12px 18px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(
+        135deg,
+        #123b6d,
+        #2563a6
+    );
+
+    color: #ffffff;
+
+    box-shadow:
+        0 9px 22px rgba(37, 99, 166, 0.20);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 14px 30px rgba(37, 99, 166, 0.28);
+}
+
+.btn-secondary {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.btn-secondary:hover {
+    background: #e2e8f0;
+}
+
+.btn-light,
+.btn-outline {
+    background: #ffffff;
+
+    border: 1px solid #dce5ee;
+
+    color: #475569;
+}
+
+.btn-light:hover,
+.btn-outline:hover {
+    background: #edf5fc;
+
+    border-color: #b8cce3;
+
+    color: #2563a6;
+}
+
+/* =========================================================
+   SEARCH BUTTON
+========================================================= */
+
+.primary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    min-height: 46px;
+
+    padding: 12px 19px;
+
+    border: none;
+    border-radius: 12px;
+
+    background: linear-gradient(
+        135deg,
+        #123b6d,
+        #2563a6
+    );
+
+    color: #ffffff !important;
+
+    font-family: 'Poppins', sans-serif;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 20px rgba(37, 99, 166, 0.20);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.primary-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 26px rgba(37, 99, 166, 0.28);
+}
+
+.primary-btn i {
+    color: #ffffff !important;
+}
+
+.search-attendance-btn {
+    height: 42px !important;
+
+    min-width: 100px;
+
+    padding: 0 16px !important;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    border-radius: 9px !important;
+
+    font-size: 12px !important;
+}
+
+/* =========================================================
+   EXAM SELECTION
+========================================================= */
+
+.exam-selection-card {
+    padding: 26px 28px;
+    margin-bottom: 28px;
+}
+
+.exam-selection-header {
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+    margin-bottom: 20px;
+}
+
+.exam-selection-header h2 {
+    font-size: 23px;
+    font-weight: 650;
+
+    color: #173f6f;
+}
+
+.exam-selection-header p {
+    margin-top: 5px;
+
+    font-size: 13px;
+    color: #94a3b8;
+}
+
+.exam-selection-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 15px;
+}
+
+.exam-option {
+    position: relative;
+
+    min-height: 96px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 17px 18px;
+
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+.exam-option:hover {
+    transform: translateY(-3px);
+
+    border-color: #b9cce1;
+
+    background: #fbfdff;
+
+    box-shadow:
+        0 12px 28px rgba(15, 23, 42, 0.07);
+}
+
+.exam-option-icon {
+    width: 48px;
+    height: 48px;
+    flex: 0 0 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 14px;
+
+    background: #edf5fc;
+    color: #2563a6;
+
+    font-size: 19px;
+}
+
+.exam-option-content {
+    min-width: 0;
+}
+
+.exam-option-content strong {
+    display: block;
+
+    color: #173f6f;
+
+    font-size: 15px;
+    font-weight: 650;
+}
+
+.exam-option-content span {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #94a3b8;
+
+    font-size: 12px;
+}
+
+/* =========================================================
+   SELECTED EXAM
+========================================================= */
+
+.selected-exam-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    padding: 21px 26px;
+    margin-bottom: 24px;
+}
+
+.selected-exam-info {
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+}
+
+.selected-exam-icon {
+    width: 54px;
+    height: 54px;
+    flex: 0 0 54px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 16px;
+
+    background: linear-gradient(
+        135deg,
+        #123b6d,
+        #2563a6
+    );
+
+    color: #ffffff;
+
+    font-size: 21px;
+}
+
+.selected-exam-info span {
+    display: block;
+
+    color: #94a3b8;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    text-transform: uppercase;
+}
+
+.selected-exam-info h2 {
+    margin-top: 3px;
+
+    color: #173f6f;
+
+    font-size: 23px;
+    font-weight: 650;
+}
+
+.selected-exam-info p {
+    margin-top: 5px;
+
+    color: #64748b;
+
+    font-size: 13px;
+}
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+.summary-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 16px;
+
+    margin-bottom: 26px;
+}
+
+.summary-card {
+    min-height: 112px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 19px;
+
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 18px;
+
+    box-shadow:
+        0 10px 30px rgba(15, 23, 42, 0.05);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.summary-card:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 16px 35px rgba(15, 23, 42, 0.08);
+}
+
+.summary-icon {
+    width: 50px;
+    height: 50px;
+    flex: 0 0 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 15px;
+
+    background: #edf5fc;
+    color: #2563a6;
+
+    font-size: 21px;
+}
+
+.summary-card span {
+    display: block;
+
+    color: #94a3b8;
+
+    font-size: 12px;
+}
+
+.summary-card strong {
+    display: block;
+
+    margin-top: 4px;
+
+    color: #173f6f;
+
+    font-size: 24px;
+    font-weight: 700;
+
+    line-height: 1.1;
+}
+
+/* =========================================================
+   ALLOCATION INFO
+========================================================= */
+
+.allocation-info-card {
+    padding: 20px 24px;
+    margin-bottom: 25px;
+}
+
+.allocation-info {
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+}
+
+.allocation-info-icon {
+    width: 46px;
+    height: 46px;
+    flex: 0 0 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background: #edf5fc;
+    color: #2563a6;
+
+    font-size: 19px;
+}
+
+.allocation-info strong {
+    display: block;
+
+    color: #173f6f;
+
+    font-size: 15px;
+}
+
+.allocation-info span {
+    display: block;
+
+    margin-top: 4px;
+
+    color: #94a3b8;
+
+    font-size: 12px;
+}
+
+/* =========================================================
+   ATTENDANCE TOOLBAR
+========================================================= */
+
+.attendance-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 20px 26px;
+    margin-bottom: 24px;
+}
+
+.attendance-toolbar h2 {
+    color: #173f6f;
+
+    font-size: 22px;
+    font-weight: 650;
+}
+
+.attendance-toolbar p {
+    margin-top: 5px;
+
+    color: #94a3b8;
+
+    font-size: 13px;
+}
+
+.toolbar-actions {
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+}
+
+/* =========================================================
+   HALL REGISTER
+========================================================= */
+
+.hall-register-card {
+    margin-bottom: 25px;
+
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.hall-register-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 16px;
+
+    padding: 19px 23px;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #edf2f7;
+}
+
+.hall-heading {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+}
+
+.hall-icon {
+    width: 44px;
+    height: 44px;
+    flex: 0 0 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background: #edf5fc;
+    color: #2563a6;
+
+    font-size: 18px;
+}
+
+.hall-heading h3 {
+    color: #173f6f;
+
+    font-size: 18px;
+    font-weight: 650;
+}
+
+.hall-heading p {
+    margin-top: 4px;
+
+    color: #94a3b8;
+
+    font-size: 12px;
+}
+
+.hall-code {
+    display: inline-flex;
+    align-items: center;
+
+    min-height: 32px;
+
+    padding: 0 11px;
+
+    border-radius: 9px;
+
+    background: #eef5fc;
+
+    border: 1px solid #d9e6f2;
+
+    color: #2563a6;
+
+    font-size: 11px;
+    font-weight: 650;
+}
+
+.hall-student-count {
+    display: inline-flex;
+    align-items: center;
+
+    min-height: 32px;
+
+    padding: 0 11px;
+
+    border-radius: 9px;
+
+    background: #f5f7fa;
+
+    color: #64748b;
+
+    font-size: 11px;
+}
+
+/* =========================================================
+   TABLE WRAPPER
+========================================================= */
+
+.attendance-table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+
+    -webkit-overflow-scrolling: touch;
+}
+
+/* =========================================================
+   ATTENDANCE TABLE
+========================================================= */
+
+.attendance-table {
+    width: 100%;
+    min-width: 920px;
+
+    border-collapse: collapse;
+}
+
+.attendance-table thead {
+    background: #f7faff;
+}
+
+.attendance-table th {
+    padding: 15px 18px;
+
+    text-align: left;
+
+    color: #64748b;
+
+    border-bottom: 1px solid #e7edf4;
+
+    font-size: 12px;
+    font-weight: 650;
+
+    white-space: nowrap;
+}
+
+.attendance-table td {
+    padding: 15px 18px;
+
+    color: #475569;
+
+    border-bottom: 1px solid #eef2f7;
+
+    font-size: 13px;
+
+    white-space: nowrap;
+
+    vertical-align: middle;
+}
+
+.attendance-table tbody tr {
+    transition: background 0.2s ease;
+}
+
+.attendance-table tbody tr:hover {
+    background: #f9fbfe;
+}
+
+.attendance-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* =========================================================
+   PIN
+========================================================= */
+
+.pin-badge,
+.pin-text {
+    color: #173f6f;
+
+    font-size: 13px;
+    font-weight: 650;
+}
+
+.pin-badge {
+    display: inline-flex;
+
+    padding: 7px 11px;
+
+    background: #eef5fc;
+
+    border: 1px solid #d9e6f2;
+
+    border-radius: 9px;
+
+    letter-spacing: 0.3px;
+}
+
+/* =========================================================
+   STUDENT NAME
+========================================================= */
+
+.student-name {
+    color: #1e293b;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* =========================================================
+   SEAT BADGE
+========================================================= */
+
+.seat-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 32px;
+
+    padding: 0 11px;
+
+    border-radius: 9px;
+
+    background: #f1f6fc;
+
+    border: 1px solid #d9e6f2;
+
+    color: #2563a6;
+
+    font-size: 12px;
+    font-weight: 650;
+}
+
+/* =========================================================
+   ATTENDANCE CHOICE
+========================================================= */
+
+.attendance-choice {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    min-width: 170px;
+}
+
+.attendance-option {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    min-height: 36px;
+
+    padding: 0 11px;
+
+    border: 1px solid #dce5ee;
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    color: #64748b;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.attendance-option input {
+    width: 15px;
+    height: 15px;
+
+    accent-color: #2563a6;
+}
+
+.present-option:has(input:checked) {
+    color: #15803d;
+
+    background: #ecfdf5;
+
+    border-color: #bbf7d0;
+}
+
+.absent-option:has(input:checked) {
+    color: #dc2626;
+
+    background: #fff1f2;
+
+    border-color: #fecdd3;
+}
+
+/* =========================================================
+   TABLE ACTIONS
+========================================================= */
+
+.actions-column {
+    text-align: center !important;
+}
+
+.table-action-btn {
+    width: 38px;
+    height: 38px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #dce5ee;
+    border-radius: 10px;
+
+    background: #ffffff;
+    color: #2563a6;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+.table-action-btn:hover {
+    background: #edf5fc;
+
+    border-color: #b8cce3;
+
+    transform: translateY(-2px);
+}
+
+/* =========================================================
+   VIEW BUTTON
+========================================================= */
+
+.view-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    min-width: 82px;
+    height: 34px;
+
+    padding: 0 12px;
+
+    background: #edf5fc;
+
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
+
+    color: #1e4f80;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    white-space: nowrap;
+
+    transition: all 0.2s ease;
+}
+
+.view-button:hover {
+    background: #2563a6;
+
+    border-color: #2563a6;
+
+    color: #ffffff;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 12px rgba(37, 99, 166, 0.18);
+}
+
+/* =========================================================
+   ATTENDANCE STATUS
+========================================================= */
+
+.attendance-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 90px;
+    height: 32px;
+
+    padding: 0 11px;
+
+    border-radius: 8px;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+.attendance-status.marked {
+    background: #dcfce7;
+
+    border: 1px solid #86efac;
+
+    color: #15803d;
+}
+
+.attendance-status.unmarked {
+    background: #f1f5f9;
+
+    border: 1px solid #cbd5e1;
+
+    color: #64748b;
+}
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.no-data,
+.no-students-card {
+    padding: 60px 22px;
+
+    text-align: center;
+
+    background: #ffffff;
+}
+
+.empty-icon,
+.no-students-icon {
+    width: 68px;
+    height: 68px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 15px;
+
+    border-radius: 19px;
+
+    background: #f1f6fc;
+    color: #2563a6;
+
+    font-size: 28px;
+}
+
+.no-data h3,
+.no-students-card h3 {
+    font-size: 18px;
+
+    color: #334155;
+
+    margin-bottom: 7px;
+}
+
+.no-data p,
+.no-students-card p {
+    color: #94a3b8;
+
+    font-size: 13px;
+}
+
+/* =========================================================
+   ATTENDANCE SUMMARY
+========================================================= */
+
+.attendance-summary {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 18px;
+
+    width: 100%;
+
+    margin-bottom: 24px;
+}
+
+.attendance-summary-box {
+    min-height: 100px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+
+    padding: 18px 20px;
+
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+
+    box-shadow:
+        0 8px 24px rgba(15, 23, 42, 0.06);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.attendance-summary-box:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 12px 28px rgba(15, 23, 42, 0.09);
+}
+
+.summary-content {
+    display: flex;
+    flex-direction: column;
+
+    gap: 2px;
+}
+
+.summary-content span {
+    color: #64748b;
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.summary-content strong {
+    color: #173f6f;
+
+    font-size: 25px;
+    line-height: 1.1;
+    font-weight: 700;
+}
+
+/* =========================================================
+   SUMMARY COLORS
+========================================================= */
+
+.present-summary .summary-icon {
+    background: #dcfce7;
+
+    border: 1px solid #86efac;
+
+    color: #15803d;
+}
+
+.absent-summary .summary-icon {
+    background: #fee2e2;
+
+    border: 1px solid #fecaca;
+
+    color: #dc2626;
+}
+
+.total-summary .summary-icon {
+    background: #edf5fc;
+
+    border: 1px solid #bfdbfe;
+
+    color: #2563a6;
+}
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal-overlay {
+    position: fixed;
+
+    inset: 0;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(15, 23, 42, 0.48);
+
+    z-index: 5000;
+}
+
+.modal-overlay.show {
+    display: flex;
+}
+
+body.modal-open {
+    overflow: hidden;
+}
+
+.modal {
+    width: 100%;
+
+    max-width: 540px;
+
+    max-height: calc(100vh - 40px);
+
+    overflow-y: auto;
+
+    background: #ffffff;
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 30px 70px rgba(15, 23, 42, 0.24);
+}
+
+.import-modal {
+    max-width: 560px;
+}
+
+/* =========================================================
+   MODAL HEADER
+========================================================= */
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    gap: 15px;
+
+    padding: 24px;
+
+    border-bottom: 1px solid #edf2f7;
+}
+
+.modal-icon {
+    width: 46px;
+    height: 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 10px;
+
+    border-radius: 13px;
+
+    background: #edf5fc;
+    color: #2563a6;
+
+    font-size: 20px;
+}
+
+.modal-header h2 {
+    font-size: 22px;
+
+    color: #1e293b;
+}
+
+.modal-header p {
+    margin-top: 5px;
+
+    color: #94a3b8;
+
+    font-size: 12px;
+}
+
+.modal-header > button {
+    width: 36px;
+    height: 36px;
+
+    border: none;
+    border-radius: 9px;
+
+    background: #f3f6fa;
+    color: #64748b;
+
+    cursor: pointer;
+
+    transition: 0.25s ease;
+}
+
+.modal-header > button:hover {
+    background: #fee2e2;
+
+    color: #dc2626;
+}
+
+/* =========================================================
+   MODAL BODY
+========================================================= */
+
+.modal form {
+    padding: 24px;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    color: #334155;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.input-field {
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+
+    height: 48px;
+
+    padding: 0 15px;
+
+    border: 1px solid #dce5ee;
+    border-radius: 11px;
+
+    background: #ffffff;
+}
+
+.input-field:focus-within {
+    border-color: #2563a6;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 166, 0.08);
+}
+
+.input-field i {
+    color: #94a3b8;
+
+    font-size: 14px;
+}
+
+.input-field input,
+.input-field select {
+    width: 100%;
+
+    border: none;
+    outline: none;
+
+    background: transparent;
+
+    color: #334155;
+
+    font-size: 13px;
+}
+
+/* =========================================================
+   MODAL ACTIONS
+========================================================= */
+
+.modal-actions {
+    display: flex;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 28px;
+}
+
+/* =========================================================
+   IMPORT SELECTED
+========================================================= */
+
+.import-selected {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 14px;
+
+    margin-bottom: 20px;
+}
+
+.import-selected > div {
+    padding: 16px;
+
+    background: #f7faff;
+
+    border: 1px solid #e2eaf2;
+
+    border-radius: 12px;
+}
+
+.import-selected span {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #94a3b8;
+
+    font-size: 11px;
+}
+
+.import-selected strong {
+    color: #173f6f;
+
+    font-size: 14px;
+}
+
+/* =========================================================
+   FILE UPLOAD
+========================================================= */
+
+.file-upload {
+    padding: 38px 25px;
+
+    text-align: center;
+
+    background: #f8fbff;
+
+    border: 2px dashed #b8cce3;
+
+    border-radius: 15px;
+}
+
+.file-upload > i {
+    font-size: 40px;
+
+    color: #2563a6;
+
+    margin-bottom: 12px;
+}
+
+.file-upload h3 {
+    font-size: 17px;
+
+    color: #334155;
+
+    margin-bottom: 6px;
+}
+
+.file-upload p {
+    color: #94a3b8;
+
+    font-size: 12px;
+
+    margin-bottom: 17px;
+}
+
+.file-upload input[type="file"] {
+    width: 100%;
+
+    font-size: 12px;
+
+    color: #64748b;
+}
+
+/* =========================================================
+   IMPORT NOTE
+========================================================= */
+
+.import-note {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 10px;
+
+    margin-top: 17px;
+
+    padding: 14px 15px;
+
+    background: #eef6ff;
+
+    border: 1px solid #d7e8f8;
+
+    border-radius: 11px;
+
+    color: #52708f;
+
+    font-size: 11px;
+
+    line-height: 1.6;
+}
+
+.import-note i {
+    color: #2563a6;
+
+    margin-top: 2px;
+}
+
+.import-note strong {
+    color: #173f6f;
+}
+
+/* =========================================================
+   ATTENDANCE HOME CARDS
+========================================================= */
+
+.attendance-options {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 18px;
+
+    width: 100%;
+
+    margin-top: 8px;
+    margin-bottom: 26px;
+}
+
+.attendance-card {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    min-height: 132px;
+
+    padding: 24px 28px;
+
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 12px 35px rgba(15, 23, 42, 0.07);
+
+    text-decoration: none;
+
+    color: inherit;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        border-color 0.25s ease;
+}
+
+.attendance-card:hover {
+    transform: translateY(-3px);
+
+    border-color: #2563a6;
+
+    box-shadow:
+        0 16px 38px rgba(15, 23, 42, 0.11);
+}
+
+.attendance-card-icon {
+    width: 54px;
+    height: 54px;
+    flex: 0 0 54px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-right: 17px;
+
+    background: #edf5fc;
+
+    color: #2563a6;
+
+    border-radius: 16px;
+}
+
+.attendance-card-icon i {
+    font-size: 23px;
+}
+
+.attendance-card-content {
+    min-width: 0;
+
+    padding-right: 32px;
+}
+
+.attendance-card-label {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #2563a6;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+.attendance-card h3 {
+    margin: 0 0 6px;
+
+    color: #173f6f;
+
+    font-size: 20px;
+    font-weight: 700;
+
+    line-height: 1.25;
+}
+
+.attendance-card p {
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+.attendance-card p i {
+    margin-right: 6px;
+
+    color: #2563a6;
+}
+
+.attendance-card-arrow {
+    position: absolute;
+
+    right: 22px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #2563a6;
+
+    font-size: 18px;
+}
+
+/* =========================================================
+   RESPONSIVE 1200
+========================================================= */
+
+@media (max-width: 1200px) {
+
+    .attendance-page {
+        padding: 26px;
+    }
+
+    .summary-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 14px;
+    }
+
+    .toolbar-actions {
+        flex-wrap: wrap;
+    }
+}
+
+/* =========================================================
+   RESPONSIVE 992
+========================================================= */
+
+@media (max-width: 992px) {
+
+    .attendance-page {
+        padding: 22px;
+    }
+
+    .page-header {
+        padding: 24px 28px;
+
+        align-items: flex-start;
+    }
+
+    .attendance-toolbar {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 16px;
+    }
+
+    .toolbar-actions {
+        width: 100%;
+    }
+
+    .date-selection-row {
+        flex-direction: column;
+
+        align-items: stretch;
+
+        gap: 12px;
+    }
+
+    .date-field {
+        width: 100%;
+    }
+
+    .exam-selection-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================================
+   RESPONSIVE 900
+========================================================= */
+
+@media (max-width: 900px) {
+
+    .attendance-summary {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* =========================================================
+   RESPONSIVE 768
+========================================================= */
+
+@media (max-width: 768px) {
+
+    .attendance-page {
+        padding: 18px;
+    }
+
+    .page-header {
+        padding: 22px;
+
+        gap: 16px;
+    }
+
+    .page-header {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+    .page-header > .btn {
+        width: 100%;
+    }
+
+    .header-left h1 {
+        font-size: 28px;
+    }
+
+    .summary-grid {
+        grid-template-columns: 1fr 1fr;
+
+        gap: 12px;
+    }
+
+    .selection-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .section-heading {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+    .selected-exam-banner {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        padding: 20px 22px;
+    }
+
+    .toolbar-actions {
+        display: grid;
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        width: 100%;
+    }
+
+    .toolbar-actions .btn {
+        width: 100%;
+    }
+
+    .hall-register-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        padding: 18px 20px;
+    }
+
+    .attendance-choice {
+        flex-direction: column;
+
+        align-items: stretch;
+
+        min-width: 160px;
+    }
+
+    .attendance-table-wrapper {
+        overflow-x: auto;
+    }
+
+    .attendance-table {
+        min-width: 920px;
+    }
+
+    .selection-card,
+    .exam-selection-card {
+        padding: 22px;
+    }
+
+    .attendance-toolbar {
+        padding: 18px 22px;
+    }
+}
+
+/* =========================================================
+   RESPONSIVE 650
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .attendance-title-box {
+        min-height: 50px;
+
+        padding-right: 88px;
+    }
+
+    .back-button {
+        width: 72px;
+        min-width: 72px;
+
+        right: 0;
+    }
+
+    .date-form {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    .date-form-group {
+        width: 100%;
+    }
+
+    .date-form-group input[type="date"] {
+        width: 100%;
+    }
+
+    .search-attendance-btn {
+        width: 100%;
+    }
+}
+
+/* =========================================================
+   RESPONSIVE 576
+========================================================= */
+
+@media (max-width: 576px) {
+
+    .attendance-page {
+        padding: 14px;
+    }
+
+    .page-header {
+        padding: 20px;
+
+        border-radius: 18px;
+    }
+
+    .header-left h1 {
+        font-size: 25px;
+    }
+
+    .section-heading h2 {
+        font-size: 22px;
+    }
+
+    .selection-card,
+    .exam-selection-card {
+        padding: 19px;
+    }
+
+    .heading-icon {
+        width: 50px;
+        height: 50px;
+        flex-basis: 50px;
+    }
+
+    .selected-exam-banner {
+        padding: 18px 19px;
+    }
+
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .summary-card {
+        min-height: 100px;
+
+        padding: 17px;
+    }
+
+    .attendance-toolbar {
+        padding: 17px 19px;
+    }
+
+    .toolbar-actions {
+        grid-template-columns: 1fr;
+    }
+
+    .modal {
+        max-width: calc(100vw - 28px);
+
+        border-radius: 17px;
+    }
+
+    .modal form,
+    .modal-header {
+        padding: 20px;
+    }
+
+    .attendance-options {
+        grid-template-columns: 1fr;
+
+        gap: 14px;
+    }
+
+    .attendance-card {
+        min-height: 116px;
+
+        padding: 20px 23px;
+    }
+
+    .attendance-card-icon {
+        width: 50px;
+        height: 50px;
+        flex-basis: 50px;
+
+        margin-right: 14px;
+    }
+
+    .import-selected {
+        grid-template-columns: 1fr;
+    }
+
+    .attendance-summary-box {
+        min-height: 88px;
+
+        padding: 14px 15px;
+    }
+
+    .summary-icon {
+        width: 42px;
+        height: 42px;
+        flex-basis: 42px;
+
+        font-size: 16px;
+    }
+
+    .summary-content strong {
+        font-size: 22px;
+    }
+}
+
+/* =========================================================
+   RESPONSIVE 400
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .attendance-page {
+        padding: 11px;
+    }
+
+    .page-header {
+        padding: 18px;
+    }
+
+    .header-left h1 {
+        font-size: 23px;
+    }
+
+    .selection-card,
+    .exam-selection-card {
+        padding: 17px;
+    }
+
+    .attendance-card {
+        padding: 18px 20px;
+    }
+
+    .selected-exam-info h2 {
+        font-size: 20px;
+    }
+}
+
+/* =========================================================
+   PRINT
+========================================================= */
+
+@media print {
+
+    body {
+        background: #ffffff !important;
+    }
+
+    .sidebar,
+    .overlay,
+    .menu-button,
+    .menu-toggle,
+    .page-header,
+    .breadcrumb,
+    .selection-card,
+    .exam-selection-card,
+    .attendance-toolbar,
+    .toolbar-actions,
+    .btn,
+    .alert,
+    .back-button {
+        display: none !important;
+    }
+
+    .attendance-page {
+        padding: 0 !important;
+    }
+
+    .selected-exam-banner,
+    .allocation-info-card,
+    .hall-register-card,
+    .attendance-register {
+        border: none !important;
+
+        box-shadow: none !important;
+    }
+
+    .attendance-table-wrapper {
+        overflow: visible !important;
+    }
+
+    .attendance-table {
+        min-width: 0 !important;
+
+        width: 100% !important;
+    }
+
+    .attendance-table th,
+    .attendance-table td {
+        padding: 10px !important;
+
+        border: 1px solid #d1d5db !important;
+
+        color: #111827 !important;
+    }
+
+    .attendance-table th {
+        background: #f1f5f9 !important;
+    }
+
+    .attendance-option {
+        border: none !important;
+
+        padding: 0 !important;
+
+        background: transparent !important;
+    }
+}
+/* =========================================================
+   VIEW MARKED ATTENDANCE - ACTIONS
+========================================================= */
+
+.attendance-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.delete-attendance-form {
+    margin: 0;
+    padding: 0;
+}
+
+.delete-attendance-btn {
+    width: 36px;
+    height: 36px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #fecaca;
+    border-radius: 9px;
+
+    background: #fef2f2;
+    color: #dc2626;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.delete-attendance-btn:hover {
+    background: #fee2e2;
+    border-color: #fca5a5;
+    color: #b91c1c;
+    transform: translateY(-1px);
+}
+
+.delete-attendance-btn i {
+    font-size: 12px;
+}
+/* =========================================================
+   EDIT ATTENDANCE ACTION
+========================================================= */
+
+.edit-attendance-btn {
+    min-width: 78px;
+    height: 36px;
+    padding: 0 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    border: 1px solid #bfdbfe;
+    border-radius: 9px;
+    background: #eff6ff;
+    color: #2563eb;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.edit-attendance-btn:hover {
+    background: #dbeafe;
+    border-color: #93c5fd;
+    color: #1d4ed8;
+    transform: translateY(-1px);
+}
+
+.edit-attendance-btn i {
+    font-size: 12px;
+}
+
+.attendance-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}

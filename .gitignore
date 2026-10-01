@@ -1,0 +1,17 @@
+# Local configuration
+config/local.php
+
+# Uploaded user/profile files
+assets/uploads/admin_*
+
+# Environment files
+.env
+.env.*
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/

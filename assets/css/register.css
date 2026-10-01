@@ -1,0 +1,204 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f5f7fb;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+}
+
+.container{
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.register-card{
+    width:420px;
+    background:#fff;
+    padding:40px;
+    border-radius:12px;
+    box-shadow:0 10px 30px rgba(0,0,0,.1);
+    text-align:center;
+}
+
+.register-card h1{
+    color:#0B2C70;
+    margin-bottom:10px;
+}
+
+.register-card p{
+    color:#666;
+    margin-bottom:25px;
+    font-size:15px;
+}
+
+/* ==========================
+   INPUT BOX
+========================== */
+
+.input-box{
+    position:relative;
+    display:flex;
+    align-items:center;
+    border:1px solid #ddd;
+    border-radius:8px;
+    padding:12px 15px;
+    margin-bottom:20px;
+}
+
+.input-box i:first-child{
+    color:#0B2C70;
+    margin-right:10px;
+    font-size:16px;
+}
+
+.input-box input{
+    width:100%;
+    border:none;
+    outline:none;
+    font-size:15px;
+    padding-right:40px;
+}
+
+/* ==========================
+   PASSWORD EYE
+========================== */
+
+.toggle-password{
+    position:absolute;
+    right:15px;
+    top:50%;
+    transform:translateY(-50%);
+    cursor:pointer;
+    color:#777;
+    font-size:18px;
+    transition:.3s;
+}
+
+.toggle-password:hover{
+    color:#123d88;
+}
+
+/* ==========================
+   PASSWORD MESSAGE
+========================== */
+
+#strengthMessage{
+    display:block;
+    text-align:left;
+    margin-top:-10px;
+    margin-bottom:15px;
+    color:#d93025;
+    font-size:13px;
+}
+
+/* ==========================
+   BUTTON
+========================== */
+
+.register-btn,
+#sendOtpBtn{
+    width:100%;
+    height:50px;
+    border:none;
+    border-radius:8px;
+    background:#0B2C70;
+    color:#fff;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.register-btn:hover,
+#sendOtpBtn:hover{
+    background:#163f95;
+}
+
+#sendOtpBtn:disabled{
+    background:#9aa7c5;
+    cursor:not-allowed;
+}
+
+/* ==========================
+   LINKS
+========================== */
+
+a{
+    text-decoration:none;
+    color:#0B2C70;
+    font-size:15px;
+}
+
+a:hover{
+    text-decoration:underline;
+}
+
+/* ==========================
+   FIREBASE reCAPTCHA
+========================== */
+
+#recaptcha-container{
+    display:flex;
+    justify-content:center;
+    margin:18px 0 25px;
+}
+
+#recaptcha-container:empty{
+    display:none;
+}
+
+/* ==========================
+   RESEND OTP
+========================== */
+
+.resend-section{
+    margin-top:20px;
+    text-align:center;
+}
+
+#resendBtn{
+    background:none;
+    border:none;
+    color:#0B2C70;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+    opacity:.5;
+}
+
+#resendBtn:enabled{
+    opacity:1;
+}
+
+#resendBtn:hover:enabled{
+    text-decoration:underline;
+}
+
+#timer{
+    margin-top:10px;
+    color:#777;
+    font-size:14px;
+}
+
+/* ==========================
+   RESPONSIVE
+========================== */
+
+@media(max-width:480px){
+
+    .register-card{
+        width:100%;
+        padding:30px 20px;
+    }
+
+}
