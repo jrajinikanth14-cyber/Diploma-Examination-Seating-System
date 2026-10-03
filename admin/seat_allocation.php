@@ -5624,6 +5624,54 @@ document.addEventListener(
         ];
 
 
+        /*
+         * Preserve the order in which the administrator selects groups.
+         * This order determines the branch sequence during Single Person
+         * allocation, instead of the default order in the HTML.
+         */
+        let selectedGroupOrder = [];
+
+        groups.forEach(function (checkbox) {
+            checkbox.addEventListener("change", function () {
+                const value = checkbox.value;
+
+                if (checkbox.checked) {
+                    selectedGroupOrder = selectedGroupOrder.filter(
+                        function (item) { return item !== value; }
+                    );
+                    selectedGroupOrder.push(value);
+                } else {
+                    selectedGroupOrder = selectedGroupOrder.filter(
+                        function (item) { return item !== value; }
+                    );
+                }
+            });
+
+            // Support any groups that may already be checked on page load.
+            if (checkbox.checked && !selectedGroupOrder.includes(checkbox.value)) {
+                selectedGroupOrder.push(checkbox.value);
+            }
+        });
+
+        function getSelectedGroupsInOrder() {
+            const checkedValues = groups
+                .filter(function (checkbox) { return checkbox.checked; })
+                .map(function (checkbox) { return checkbox.value; });
+
+            // Keep click order, while safely including any checked boxes
+            // that were checked programmatically and did not fire change.
+            const ordered = selectedGroupOrder.filter(function (value) {
+                return checkedValues.includes(value);
+            });
+
+            checkedValues.forEach(function (value) {
+                if (!ordered.includes(value)) ordered.push(value);
+            });
+
+            return ordered;
+        }
+
+
         let students = [];
 
         let generatedAllocation = [];
@@ -6346,25 +6394,7 @@ function updateGenerateButton() {
                 async function () {
 
                     const selectedGroups =
-                        groups
-                            .filter(
-                                function (
-                                    checkbox
-                                ) {
-
-                                    return checkbox.checked;
-
-                                }
-                            )
-                            .map(
-                                function (
-                                    checkbox
-                                ) {
-
-                                    return checkbox.value;
-
-                                }
-                            );
+                        getSelectedGroupsInOrder();
 
 
                     if (
@@ -6583,25 +6613,7 @@ function updateGenerateButton() {
         function buildGenerationRequest() {
 
             const selectedGroups =
-                groups
-                    .filter(
-                        function (
-                            checkbox
-                        ) {
-
-                            return checkbox.checked;
-
-                        }
-                    )
-                    .map(
-                        function (
-                            checkbox
-                        ) {
-
-                            return checkbox.value;
-
-                        }
-                    );
+                getSelectedGroupsInOrder();
 
 
             const selectedHallIds =
@@ -8132,6 +8144,8 @@ function updateGenerateButton() {
 
                         }
                     );
+
+                    selectedGroupOrder = [];
 
 
                     halls.forEach(
